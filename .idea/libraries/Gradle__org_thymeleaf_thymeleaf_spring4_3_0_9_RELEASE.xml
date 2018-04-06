@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf-spring4/3.0.9.RELEASE/7c16cb373bb8dd76103633b427a1bba13e54db1e/thymeleaf-spring4-3.0.9.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf-spring4/3.0.9.RELEASE/2bc744d717f1250bbac41f8f28f21a68501cb4bd/thymeleaf-spring4-3.0.9.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangchen.DAO.CommentDAO">
+    <resultMap id="commentMapper" type="com.liangchen.POJO.CommentBean">
+        <id column="id" property="id" javaType="int" jdbcType="INTEGER"/>
+        <result column="zpid" property="zpid"/>
+        <result column="replays_id" property="replaysId"/>
+        <result column="commenter" property="commenter"/>
+        <result column="replayer_img" property="replayerImg"/>
+        <result column="content" property="commentContent"/>
+        <result column="date" property="commentDate"/>
+        <result column="isread" property="isRead"/>
+    </resultMap>
+    <select id="getCommentByID" parameterType="int" resultMap="commentMapper"  >
+        SELECT * FROM comments WHERE id=#{id}
+    </select>
+    <select id="getCommentByzpID" parameterType="int" resultMap="commentMapper">
+        SELECT * FROM comments WHERE zpid=#{zpid}
+    </select>
+    <select id="getCommentByCommenter" parameterType="String" resultMap="commentMapper">
+        SELECT * FROM comments WHERE commenter=#{commenter}
+    </select>
+    <insert id="insertComment" parameterType="comment" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO comments (zpid,replays_id,commenter,replayer_img,content,date) VALUES (#{zpid},#{replaysId},#{commenter},#{replayerImg},#{commentContent},#{commentDate})
+    </insert>
+    <delete id="deleteCommentByID" parameterType="int">
+        DELETE FROM comments WHERE id=#{id}
+    </delete>
+    <update id="addReplay" parameterType="comment">
+        UPDATE comments SET replays_id=#{replaysId} WHERE id=#{id};
+    </update>
+    <update id="updataRead" parameterType="int">
+        UPDATE comments SET isread =1 WHERE id=#{id};
+    </update>
+
+</mapper>

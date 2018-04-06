@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangchen.DAO.ArticleDAO">
+    <resultMap id="articleMapper" type="com.liangchen.POJO.ArticleBean">
+        <id column="id" property="id" javaType="int" jdbcType="INTEGER"/>
+        <result column="title" property="articleTitle"/>
+        <result column="author" property="articleAuthor"/>
+        <result column="author_img" property="articleAuthorImg"/>
+        <result column="title_page" property="articleTitlePage"/>
+        <result column="create_date" property="articleCreateDate"/>
+        <result column="publish" property="publish"/>
+        <result column="tags" property="articleTags"/>
+        <result column="content" property="articleContent"/>
+        <result column="pv" property="articlePV"/>
+        <result column="comments" property="articleComments"/>
+        <result column="likes" property="articleLikes"/>
+    </resultMap>
+    <select id="getArticles"  resultMap="articleMapper">
+        SELECT  * FROM articles LIMIT #{startIndex},#{nums}
+    </select>
+    <select id="getGlyArticles"  resultMap="articleMapper">
+        SELECT  * FROM articles WHERE author=#{name}
+    </select>
+    <select id="getArticleByID" parameterType="int" resultMap="articleMapper">
+        SELECT * FROM articles WHERE id=#{id}
+    </select>
+    <insert id="addArticle" parameterType="article" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO articles (title,author,author_img,title_page,tags,create_date,content,publish,pv,comments,likes) VALUE (#{articleTitle},#{articleAuthor},#{articleAuthorImg},#{articleTitlePage},#{articleTags},#{articleCreateDate},#{articleContent},#{publish},#{articlePV},#{articleComments},#{articleLikes})
+    </insert>
+    <delete id="deleteArticleByID" parameterType="int">
+        DELETE FROM articles WHERE id=#{id}
+    </delete>
+    <update id="editArticle" parameterType="article">
+        UPDATE articles
+        <set>
+            <if test="articleTags !=null">tags=#{articleTags},</if>
+            <if test="publish !=null">publish=#{publish},</if>
+            <if test="articleContent !=null">content=#{articleContent},</if>
+            <if test="articleCreateDate !=null">create_date=#{articleCreateDate},</if>
+            <if test="articlePV !=null">pv=#{articlePV},</if>
+            <if test="articleComments !=null">comments=#{articleComments},</if>
+            <if test="articleLikes !=null">likes=#{articleLikes}</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

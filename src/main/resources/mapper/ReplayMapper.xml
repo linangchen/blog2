@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangchen.DAO.ReplayDAO">
+    <resultMap id="replayMapper" type="com.liangchen.POJO.ReplayBean">
+        <id column="id" property="id" javaType="int" jdbcType="INTEGER"/>
+        <result column="commenter" property="replayer"/>
+        <result column="replayer_img" property="replayerImg"/>
+        <result column="replay_to" property="replayTo"/>
+        <result column="content" property="replayContent"/>
+        <result column="date" property="replayDate"/>
+    </resultMap>
+    <select id="getReplayByID" parameterType="int" resultMap="replayMapper"  >
+        SELECT * FROM comments WHERE id=#{id}
+    </select>
+    <insert id="addReplay" parameterType="replay" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO comments (commenter,replayer_img,replay_to,content,date) VALUES (#{replayer},#{replayerImg},#{replayTo},#{replayContent},#{replayDate})
+    </insert>
+    <delete id="deleteReplayByID" parameterType="int">
+        DELETE FROM comments WHERE id=#{id}
+    </delete>
+
+</mapper>

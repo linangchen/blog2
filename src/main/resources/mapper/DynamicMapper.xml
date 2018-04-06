@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangchen.DAO.DynamicDAO">
+    <resultMap id="dynamicMapper" type="com.liangchen.POJO.DynamicBean">
+        <id column="id" property="id" javaType="int" jdbcType="INTEGER"/>
+        <result column="author" property="dynamicAuthor"/>
+        <result column="author_img" property="dynamicAuthorImg"/>
+        <result column="title_page" property="dynamicTitlePage"/>
+        <result column="create_date" property="dynamicCreateDate"/>
+        <result column="content" property="dynamicContent"/>
+        <result column="publish" property="publish"/>
+        <result column="likes" property="dynamicLikes"/>
+    </resultMap>
+    <select id="getDynamics"  resultMap="dynamicMapper">
+        SELECT  *  FROM dynamics LIMIT #{startIndex},#{num}
+    </select>
+    <select id="getGlyDynamics"  resultMap="dynamicMapper">
+        SELECT  *  FROM dynamics WHERE author=#{name}
+    </select>
+    <select id="getDynamicByID" parameterType="int" resultMap="dynamicMapper">
+        SELECT * FROM dynamics WHERE id=#{id}
+    </select>
+    <insert id="insertDynamic" parameterType="dynamic" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO dynamics (author,author_img,create_date,content,publish,likes) VALUE (#{dynamicAuthor},#{dynamicAuthorImg},#{dynamicCreateDate},#{dynamicContent},#{publish},#{dynamicLikes})
+    </insert>
+    <delete id="deleteDynamicByID" parameterType="int">
+        DELETE FROM dynamics WHERE id=#{id}
+    </delete>
+    <update id="updataDynamic" parameterType="dynamic">
+        UPDATE dynamics
+        <set>
+            <if test="dynamicAuthor !=null">author=#{dynamicAuthor},</if>
+            <if test="dynamicContent !=null">content=#{dynamicContent},</if>
+            <if test="publish !=null">publish=#{publish},</if>
+            <if test="dynamicLikes !=null">likes=#{dynamicLikes}</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

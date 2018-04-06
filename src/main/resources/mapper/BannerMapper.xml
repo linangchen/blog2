@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangchen.DAO.BannerDAO">
+    <resultMap id="bannerMapper" type="com.liangchen.POJO.BannerBean">
+        <id column="id" property="id" javaType="int" jdbcType="INTEGER"/>
+        <result column="likes" property="likes"/>
+        <result column="title" property="title"/>
+        <result column="img" property="img"/>
+        <result column="date" property="date"/>
+    </resultMap>
+    <select id="getBanner"  resultMap="bannerMapper">
+        SELECT  * FROM banners WHERE id=1111
+    </select>
+    <update id="updataBanner" parameterType="banner">
+        UPDATE banners
+        <set>
+        <if test="title != null">title=#{title},</if>
+        <if test="img != null">img=#{img},</if>
+        <if test="date != null">date=#{date}</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

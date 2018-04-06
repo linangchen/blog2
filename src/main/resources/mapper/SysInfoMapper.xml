@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangchen.DAO.SysInfoDAO">
+    <resultMap id="sysInfoMapper" type="com.liangchen.POJO.SysInfoBean">
+        <id column="id" property="id" javaType="int" jdbcType="INTEGER"/>
+        <result column="articles" property="articles"/>
+        <result column="dynamics" property="dynamics"/>
+        <result column="productions" property="productions"/>
+        <result column="pv" property="pageViews"/>
+    </resultMap>
+    <select id="getSysInfo" parameterType="int" resultMap="sysInfoMapper">
+        SELECT * FROM sys_info WHERE id=#{id}
+    </select>
+    <update id="updataSysInfo" parameterType="com.liangchen.POJO.SysInfoBean">
+        UPDATE sys_info
+        <set>
+            <if test="articles !=null">articles=#{articles},</if>
+            <if test="dynamics !=null">dynamics=#{dynamics},</if>
+            <if test="productions !=null">productions=#{productions},</if>
+            <if test="pageViews !=null">pv=#{pageViews}</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

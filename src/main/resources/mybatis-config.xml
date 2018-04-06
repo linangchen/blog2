@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--启用缓存-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--允许JDBC支持生成的键-->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!--配置默认执行器 REUSE执行器重用预处理语句，BATCH执行器重用语句和批量更新-->
+        <setting name="defaultExecutorType" value="REUSE"/>
+        <!--启用延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--设置超时时间-->
+        <setting name="defaultStatementTimeout" value="25000"/>
+    </settings>
+    <!--定义别名-->
+    <typeAliases>
+        <typeAlias alias="glyBean" type="com.liangchen.POJO.GLYBean"/>
+        <typeAlias alias="client" type="com.liangchen.POJO.Client"/>
+        <typeAlias alias="dynamic" type="com.liangchen.POJO.DynamicBean"/>
+        <typeAlias alias="comment" type="com.liangchen.POJO.CommentBean"/>
+        <typeAlias alias="replay" type="com.liangchen.POJO.ReplayBean"/>
+        <typeAlias alias="article" type="com.liangchen.POJO.ArticleBean"/>
+        <typeAlias alias="production" type="com.liangchen.POJO.ProductionBean"/>
+        <typeAlias alias="banner" type="com.liangchen.POJO.BannerBean"/>
+    </typeAliases>
+    <!--定义映射器-->
+    <mappers>
+        <mapper resource="mapper/GLYMapper.xml"/>
+        <mapper resource="mapper/ClientMapper.xml"/>
+        <mapper resource="mapper/DynamicMapper.xml"/>
+        <mapper resource="mapper/Comment.xml"/>
+        <mapper resource="mapper/ReplayMapper.xml"/>
+        <mapper resource="mapper/ArticleMapper.xml"/>
+        <mapper resource="mapper/ProductionMapper.xml"/>
+        <mapper resource="mapper/SysInfoMapper.xml"/>
+        <mapper resource="mapper/BannerMapper.xml"/>
+    </mappers>
+</configuration>

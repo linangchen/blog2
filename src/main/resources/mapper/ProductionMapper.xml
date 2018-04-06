@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangchen.DAO.ProductionDAO">
+    <resultMap id="productionMapper" type="com.liangchen.POJO.ProductionBean">
+        <id column="id" property="id" javaType="int" jdbcType="INTEGER"/>
+        <result column="title" property="productionTitle"/>
+        <result column="author" property="productionAuthor"/>
+        <result column="author_img" property="productionAuthorImg"/>
+        <result column="title_page" property="productionTitlePage"/>
+        <result column="create_date" property="productionCreateDate"/>
+        <result column="describes" property="productionDescribes"/>
+        <result column="content" property="productionContent"/>
+        <result column="publish" property="publish"/>
+        <result column="pv" property="productionPV"/>
+        <result column="comments" property="productionComments"/>
+        <result column="likes" property="productionLikes"/>
+    </resultMap>
+    <select id="getProductions"  resultMap="productionMapper">
+        SELECT  * FROM productions LIMIT #{startIndex},#{nums}
+    </select>
+    <select id="getGlyProductions"  resultMap="productionMapper">
+        SELECT  * FROM productions WHERE author=#{name}
+    </select>
+    <select id="getProductionByID" parameterType="int" resultMap="productionMapper">
+        SELECT * FROM productions WHERE id=#{id}
+    </select>
+    <insert id="addProduction" parameterType="production" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO productions (title,author,author_img,describes,create_date,title_page,content,publish,pv,comments,likes) VALUE (#{productionTitle},#{productionAuthor},#{productionAuthorImg},#{productionDescribes},#{productionCreateDate},#{productionTitlePage},#{productionContent},#{publish},#{productionPV},#{productionComments},#{productionLikes})
+    </insert>
+    <delete id="deleteProductionByID" parameterType="int">
+        DELETE FROM productions WHERE id=#{id}
+    </delete>
+    <update id="editProduction" parameterType="production">
+        UPDATE productions
+        <set>
+            <if test="productionContent !=null">content=#{productionContent},</if>
+            <if test="productionCreateDate !=null">create_date=#{productionCreateDate},</if>
+            <if test="productionPV !=null">pv=#{productionPV},</if>
+            <if test="productionComments !=null">comments=#{productionComments},</if>
+            <if test="productionLikes !=null">likes=#{productionLikes},</if>
+            <if test="publish !=null">publish=#{publish}</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

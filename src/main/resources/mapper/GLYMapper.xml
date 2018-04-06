@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangchen.DAO.GLYDAO">
+    <resultMap id="GLYMapper" type="com.liangchen.POJO.GLYBean">
+        <id column="id" property="id" javaType="int" jdbcType="INTEGER"/>
+        <result column="name" property="name"/>
+        <result column="really_name" property="reallyName"/>
+        <result column="pass_word" property="passWord"/>
+        <result column="img" property="img"/>
+        <result column="sex" property="sex"/>
+        <result column="telephone" property="telephone"/>
+        <result column="qq" property="qq"/>
+        <result column="email" property="email"/>
+        <result column="level" property="level"/>
+    </resultMap>
+    <select id="getGLY" parameterType="int" resultMap="GLYMapper">
+        SELECT  * FROM gly WHERE id=#{id}
+    </select>
+    <select id="getGLYList" resultMap="GLYMapper">
+        SELECT  * FROM gly
+    </select>
+    <select id="getGLYByName" parameterType="String" resultMap="GLYMapper">
+        SELECT  * FROM gly WHERE name=#{userName}
+    </select>
+    <update id="updataGLY" parameterType="glyBean">
+        UPDATE gly
+        <set>
+            <if test="name !=null"> name=#{name},</if>
+            <if test="reallyName !=null"> really_name=#{reallyName},</if>
+            <if test="passWord !=null"> pass_word=#{passWord},</if>
+            <if test="img !=null"> img=#{img},</if>
+            <if test="sex !=null"> sex=#{sex},</if>
+            <if test="telephone !=null"> telephone=#{telephone},</if>
+            <if test="qq !=null"> qq=#{qq},</if>
+            <if test="email !=null"> email=#{email},</if>
+            <if test="level !=null"> level=#{level}</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+    <insert id="insertGLY" parameterType="glyBean">
+        INSERT INTO gly VALUES  (#{id},#{name},#{reallyName},#{passWord},#{img},#{sex},#{telephone},#{qq},#{email},#{level})
+    </insert>
+    <delete id="deleteGLY" parameterType="int">
+        DELETE FROM gly WHERE id=#{id}
+    </delete>
+</mapper>
